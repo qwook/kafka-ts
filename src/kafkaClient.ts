@@ -100,7 +100,6 @@ export default class KafkaClient {
 			const correlation = this.correlationMap.get(correlationId)
 			if (correlation) {
 				correlation.resolve(Buffer.from(""))
-				this.correlationMap.delete(correlationId)
 			}
 			console.log(requestArgs.name)
 			console.log("Timed out!")
@@ -109,6 +108,7 @@ export default class KafkaClient {
 			this.correlationMap.set(correlationId, {
 				resolve: (buffer) => {
 					clearTimeout(timeout)
+					this.correlationMap.delete(correlationId)
 					return resolve(buffer)
 				},
 				timeout,
@@ -119,6 +119,13 @@ export default class KafkaClient {
 			response
 		)
 		return decoded
+	}
+
+	reset() {
+		for (const correlation of this.correlationMap.values()) {
+			correlation.resolve(Buffer.from(""))
+		}
+		this.correlationMap.clear()
 	}
 
 	constructor({

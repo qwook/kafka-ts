@@ -42,6 +42,16 @@ export default class KafkaClientPool {
 		this.clients.delete(key)
 	}
 
+	/**
+	 * Different from cleanup. This will reset the client's state and resolve all pending
+	 * requests with an error.
+	 */
+	async resetAll() {
+		for (const client of this.clients.values()) {
+			await client.reset()
+		}
+	}
+
 	async cleanup() {
 		for (const client of this.clients.values()) {
 			await client.disconnect()

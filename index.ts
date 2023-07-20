@@ -24,6 +24,8 @@ hmr(async () => {
 			"./src/assigners/allToLeaderAssigner"
 		)
 
+		kafkaClientPool.resetAll()
+
 		kafkaConsumerEngine = new KafkaConsumerEngine({
 			clientPool: kafkaClientPool,
 			groupId: "local-webhook-relay-worker-cg",
