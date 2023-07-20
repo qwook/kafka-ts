@@ -6,14 +6,14 @@ A toy Kafka consumer written in Typescript.
 
 ```bash
 npm install
-npx ts-node index.ts --group-id <GROUP ID> --topic <TOPIC>
+npx ts-node index.ts --group-id <GROUP ID> --client-id <CLIENT ID> --topic <TOPIC>
 ```
 
 or
 
 ```bash
 yarn install
-npx ts-node index.ts --group-id <GROUP ID> --topic <TOPIC>
+npx ts-node index.ts --group-id <GROUP ID> --client-id <CLIENT ID> --topic <TOPIC>
 ```
 
 ## Developing
