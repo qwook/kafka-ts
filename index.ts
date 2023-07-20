@@ -4,11 +4,12 @@ import { setLoopedFunction, looper } from "./src/looper"
 import KafkaClientPool from "./src/kafkaClientPool"
 import minimist from "minimist"
 
+const argv = minimist(process.argv.slice(2))
+
 const kafkaClientPool = new KafkaClientPool({
-	clientId: "local-webhook-relay-worker-client",
+	clientId: argv["client-id"],
 })
 
-const argv = minimist(process.argv.slice(2))
 
 let kafkaConsumerEngine: KafkaConsumerEngine | undefined
 let state = {}
@@ -28,8 +29,8 @@ hmr(async () => {
 
 		kafkaConsumerEngine = new KafkaConsumerEngine({
 			clientPool: kafkaClientPool,
-			groupId: "local-webhook-relay-worker-cg",
-			topics: ["hen-confluent-sl-app-event-stream-page-viewed"],
+			groupId: argv["group-id"],
+			topics: [argv["topic"]],
 			brokers: ["localhost:9092"],
 			state,
 			assigner: allToLeaderAssigner,
