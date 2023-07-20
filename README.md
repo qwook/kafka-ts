@@ -22,4 +22,4 @@ Most of the core code exists in `kafkaConsumerEngine.ts`.
 
 Another entry point is `index.ts`.
 
-This consumer is developed with Hot-Module-Reloading at the core. This means most changes will not need a complete restart of the consumer.
+This consumer is developed with Hot-Module-Reloading at the core. This means most changes will not need a complete restart of the consumer. There may be some errors when HMR restarts the consumer engine, as any fetches are intercepted mid-flight and rejected.
